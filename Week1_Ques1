@@ -1,0 +1,53 @@
+import java.util.*;
+public class Main
+{
+    static int xorFun(int a[],int n,int L,int R)
+    {
+        int res=0;
+        for(int i=L;i<=R;i=i+2)
+        {
+            res+=((a[i]|a[i+1])-(a[i]&a[i+1]));
+        }
+        return res;
+    }
+    static int getDecimal(int binary)
+    {  
+        int decimal=0;  
+        int n=0;  
+        while(true)
+        {  
+            if(binary==0)
+            {  
+                break;  
+            } 
+            else 
+            {  
+                int temp;
+                temp=binary%10;  
+                decimal+=temp*Math.pow(2,n);  
+                binary=binary/10;  
+                n++;
+            }  
+        }  
+        return decimal;  
+    }  
+	public static void main(String[] args) 
+	{
+		int n,arr[];
+		arr=new int[100];
+		int i,T,L,R;
+		Scanner sc=new Scanner(System.in);
+		n=sc.nextInt();
+		for(i=0;i<n;i++)
+		arr[i]=sc.nextInt();
+		T=sc.nextInt();
+		for(i=0;i<T;i++)
+		{
+		    L=sc.nextInt();
+		    R=sc.nextInt();
+		    int bin=Integer.parseInt(Integer.toBinaryString(xorFun(arr,n,L,R)));
+		    int res=getDecimal(bin);
+		    System.out.println(res);
+		}
+	}
+}
