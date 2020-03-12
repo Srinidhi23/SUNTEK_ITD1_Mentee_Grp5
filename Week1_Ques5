@@ -1,0 +1,57 @@
+/*
+
+TEST CASES:
+
+1) INPUT  : 2
+   OUTPUT : [0,1,1]
+   
+2) INPUT  : 7
+   OUTPUT : [0,1,1,2,1,2,2,3]
+   
+3) INPUT  : 15
+   OUTPUT : [0,1,1,2,1,2,2,3,1,2,2,3,2,3,3,4]
+   
+4) INPUT  : 32
+   OUTPUT : [0,1,1,2,1,2,2,3,1,2,2,3,2,3,3,4,1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,1]
+   
+5) INPUT  : 0
+   OUTPUT : [0] 
+*/
+
+import java.util.*;
+public class Main
+{
+    static int[] Count(int n)
+    {
+        int res[]=new int[n+1];
+        for(int i=0;i<=n;i++)
+        res[i]=oneCount(i);
+        return res;
+    }
+    static int oneCount(int n)
+    {
+        int count=0;
+        while(n!=0)
+        {
+            if(n%2==1)
+            {
+                count++;
+            }
+            n/=2;
+        }
+        return count;
+    }
+	  public static void main(String[] args) 
+	  {
+		    Scanner sc=new Scanner(System.in);
+		    int i,n=sc.nextInt();
+		    int array[]=new int[n+1];
+		    array=Count(n);
+		    System.out.print("[");
+		    for(i=0;i<n;i++)
+		    System.out.print(array[i]+",");
+		    if(i==n)
+		    System.out.print(array[i]);
+		    System.out.print("]");
+	  }
+}
