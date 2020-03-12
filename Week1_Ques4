@@ -1,0 +1,42 @@
+/* 
+
+TEST CASES:
+
+1)INPUT  : 8
+  OUTPUT : 3
+  
+2)INPUT  : 99
+  OUTPUT : 9
+  
+3)INPUT  : 1
+  OUTPUT : 0
+  
+4)INPUT  : 37
+  OUTPUT : 7
+  
+5)INPUT  : 73
+  OUTPUT : 8
+  
+*/
+  
+import java.io.*;
+import java.util.*;
+public class Main
+{
+    static int minNumberofways(int n)
+    {
+        if(n==1)
+        return 0;
+        else if(n%2!=0)
+        return 1+Math.min(minNumberofways(n-1),minNumberofways(n+1));
+        else 
+        return 1+minNumberofways(n/2);
+    }
+	  public static void main(String[] args) throws Exception
+	  {
+		    Scanner sc=new Scanner(System.in);
+		    int n=sc.nextInt();
+		    int res=minNumberofways(n);
+		    System.out.println(res);
+	  }
+}
