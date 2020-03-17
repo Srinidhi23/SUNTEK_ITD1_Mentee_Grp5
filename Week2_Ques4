@@ -1,0 +1,48 @@
+/*
+
+TESTCASES:
+
+1) INPUT  : 1 2 3 4 6 8
+   OUTPUT : 5
+2) INPUT  : 4 5 8 12 45
+   OUTPUT : 6
+3) INPUT  : 0 2 65
+   OUTPUT : 1
+4) INPUT  : 23 24 26 29
+   OUTPUT : 25
+   
+*/   
+
+//without recursion
+import java.util.*;
+import java.io.*;
+
+public class Main
+{
+	public static void main(String[] args) throws IOException
+	{
+	    BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		String[] str=br.readLine().split(" ");
+		int n=str.length;
+		int[] intarray=new int[n];
+        int j=0,i=0;
+        for(String s:str)
+        {
+            intarray[i]=Integer.parseInt(s.trim());
+            i++;
+        }
+        //for(i=0;i<n;i++)
+        //System.out.print(intarray[i]);
+        for(i=0;i<n;)
+        {
+            if(intarray[i]+1==intarray[i+1])
+            i++;
+            else
+            {
+                j=i;
+                break;
+            }
+        }
+        System.out.println(intarray[j]+1);
+	}
+}
