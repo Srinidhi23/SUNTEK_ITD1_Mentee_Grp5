@@ -1,0 +1,72 @@
+
+//segment tree methods
+
+void build(int node, int start, int end)
+{
+    if(start == end)
+    {
+        // Leaf node
+        tree[node] = A[start];
+    }
+    else
+    {
+        int mid = (start + end) / 2;
+        // Recursion on left child
+        build(2*node, start, mid);
+        // Recursion on right child
+        build(2*node+1, mid+1, end);
+        // Internal node has the sum of both its children
+        tree[node] = tree[2*node] + tree[2*node+1];
+    }
+}
+
+
+
+
+void update(int node, int start, int end, int index, int val)
+{
+    if(start == end)
+    {
+        // Leaf node
+        A[index] += val;
+        tree[node] += val;
+    }
+    else
+    {
+        int mid = (start + end) / 2;
+        if(start <= index and index <= mid)
+        {
+            //recursion on the left child
+            update(2*node, start, mid, index, val);
+        }
+        else
+        {
+            //recursion on the right child
+            update(2*node+1, mid+1, end, index, val);
+        }
+        // Internal node has the sum of both its children
+        tree[node] = tree[2*node] + tree[2*node+1];
+    }
+}
+
+
+
+
+int findSumInRange(int node, int start, int end, int l, int r)
+{
+    if(r < start or end < l)
+    {
+        //outside the given range
+        return 0;
+    }
+    if(l <= start and end <= r)
+    {
+        //inside the given range
+        return tree[node];
+    }
+    //partially inside and partially outside the given range
+    int mid = (start + end) / 2;
+    int c1 = query(2*node, start, mid, l, r);
+    int c2 = query(2*node+1, mid+1, end, l, r);
+    return (c1 + c2);
+}
