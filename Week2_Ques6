@@ -1,0 +1,91 @@
+/*
+
+TEST CASES:
+
+1) INPUT  : 1 12 15 26 38
+            2 13 17 30 45
+   OUTPUT : 16
+
+2) INPUT  : 5 7 9 10 11
+            1 8 17 19 21
+   OUTPUT : 9
+ 
+3) INPUT  : 25
+            35
+   OUTPUT : 30
+   
+4) INPUT  : 42 96
+            57 81
+   OUTPUT : 69
+   
+*/
+
+import java.util.*;
+import java.io.*;
+
+class Main 
+{ 
+    
+    static int getMedian( int[] a, int[] b, int startA, int startB, int endA, int endB) 
+    { 
+        //if there are only two elements in each array
+        if (endA - startA == 1) 
+        { 
+            return ( Math.max(a[startA], b[startB]) + Math.min(a[endA], b[endB])) / 2; 
+        } 
+        //if there are more than two elements,find median of each of the arrays
+        int m1 = median(a, startA, endA); 
+        int m2 = median(b, startB, endB); 
+        if (m1 == m2) 
+            return m1;
+        //here the median should lie in a[m1...] and b[...m2]
+        else if (m1 < m2) 
+            return getMedian( a, b, (endA + startA + 1) / 2, startB, endA, (endB + startB + 1) / 2); 
+        //here the median should lie in a[...m1] and b[m2...]
+        else 
+            return getMedian( a, b, startA, (endB + startB + 1) / 2, (endA + startA + 1) / 2, endB); 
+    } 
+    
+    //to find median of individual sorted arrays
+    static int median( int[] arr, int start, int end) 
+    { 
+        int n = end - start + 1; 
+        if (n % 2 == 0) 
+        { 
+            return ( arr[start + (n / 2)] + arr[start + (n / 2 - 1)]) / 2; 
+        } 
+        else 
+        { 
+            return arr[start + n / 2]; 
+        } 
+    } 
+  
+    public static void main(String[] args)throws IOException
+    { 
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		    String[] str1=br.readLine().split(" ");
+		    int n1=str1.length;
+		    int[] arr1=new int[n1];
+        int i=0;
+        for(String s:str1)
+        {
+            arr1[i]=Integer.parseInt(s.trim());
+            i++;
+        }
+        i=0;
+        String[] str2=br.readLine().split(" ");
+		    int n2=str2.length;
+		    int[] arr2=new int[n1];
+        for(String s:str2)
+        {
+            arr2[i]=Integer.parseInt(s.trim());
+            i++;
+        }
+        //if there is only one element in each of the arrays
+        if (n1 == 1)
+            System.out.println((arr1[0] + arr2[0]) / 2); 
+        //if there is more than one element in each array
+        else
+            System.out.println( getMedian( arr1, arr2, 0, 0, n1-1, n2-1));
+    } 
+} 
