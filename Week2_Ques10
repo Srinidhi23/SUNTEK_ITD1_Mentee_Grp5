@@ -1,0 +1,67 @@
+/*
+
+TEST CASES:
+
+1) INPUT  : 2 1 4 5 6
+            3
+   OUTPUT : True
+
+2) INPUT  : 4 3 2 3 5 2 1
+            4
+   OUTPUT : True
+
+3) INPUT  : 5 1 2 5 6 
+            3
+   OUTPUT : False
+
+*/
+
+import java.io.*;
+import java.util.*;
+public class Main
+{
+    static void partition(int[] arr,int n,int k)
+    {
+        Arrays.sort(arr);
+        int sum=0;
+        for(int i=0;i<n;i++)
+        sum+=arr[i];
+        if(sum%k!=0)
+        System.out.println("False");
+        else
+        {
+        int temp=sum/k;
+        int first=0;
+        int last=n-1;
+        if(arr[last]==temp)
+        last=last-1;
+            while(first<last)
+            {
+                if(arr[first]+arr[last]==temp)
+                {
+                    first++;
+                    last--;
+                }
+                else
+                break;
+            }
+            System.out.println("True");
+        }
+    }
+	public static void main(String[] args) throws IOException
+	{
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	    String[] str=br.readLine().split(" ");
+		int n=str.length;
+		int[] intarray=new int[n];
+        int i=0;
+        for(String s:str)
+        {
+            intarray[i]=Integer.parseInt(s.trim());
+            i++;
+        }
+        Scanner sc=new Scanner(System.in);
+        int k=sc.nextInt();
+        partition(intarray,n,k);
+	}
+}
